@@ -91,7 +91,15 @@ export default function Hero() {
     if (!isCtrlPressed) {
       setShowZoomHint(true);
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      timeoutRef.current = setTimeout(() => setShowZoomHint(false), 2000);
+      timeoutRef.current = setTimeout(() => setShowZoomHint(false), 3000);
+    }
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (e.touches.length === 1) {
+      setShowZoomHint(true);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(() => setShowZoomHint(false), 3000);
     }
   };
 
@@ -122,7 +130,7 @@ export default function Hero() {
       <Grid />
 
       {/* 3D Model Canvas */}
-      <div className="absolute inset-0 z-10" onWheel={handleWheel}>
+      <div className="absolute inset-0 z-10" onWheel={handleWheel}onTouchStart={handleTouchStart}>
         <Canvas shadows={{ type: THREE.PCFShadowMap }} camera={{ position: [0, 0, 10], fov: 35 }}>
           <ambientLight intensity={0.8} />
           {/* Main light shining directly from the viewer's perspective (camera is at 0, 0, 10) */}
@@ -151,14 +159,23 @@ export default function Hero() {
           
           <OrbitControls
             enableZoom={isMobile || isCtrlPressed}
+            enableRotate={true}
             enablePan={false}
+            touches={{
+              ONE: undefined, // Let one-finger gestures pass through for page scrolling
+              TWO: THREE.TOUCH.ROTATE // Use two fingers for rotating on touch devices
+            }}
           />
         </Canvas>
 
-        {/* Zoom Hint Overlay */}
-        <div className={`absolute inset-0 flex items-center justify-center pointer-events-none transition-opacity duration-300 z-30 ${showZoomHint ? 'opacity-100' : 'opacity-0'}`}>
-          <div className="bg-black/70 text-white px-6 py-3 rounded-full text-sm font-medium tracking-wide backdrop-blur-sm">
-            Use Ctrl + scroll to zoom the model
+        {/* Interaction Hint Overlay */}
+        <div className={`absolute inset-0 flex items-center justify-center pointer-events-none transition-opacity duration-500 z-30 ${showZoomHint ? 'opacity-100' : 'opacity-0'}`}>
+          <div className="bg-black/80 text-white px-6 py-4 rounded-2xl text-sm font-medium tracking-wide backdrop-blur-md border border-white/10 shadow-2xl flex flex-col items-center gap-2">
+            <div className="flex gap-2 mb-1">
+              <div className="w-1.5 h-1.5 rounded-full bg-white animate-ping"></div>
+              <div className="w-1.5 h-1.5 rounded-full bg-white opacity-50"></div>
+            </div>
+            {isMobile ? 'Use two fingers to rotate & zoom' : 'Use Ctrl + scroll to zoom'}
           </div>
         </div>
       </div>

@@ -15,7 +15,30 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Momoru",
-  description: "The creature can't be tamed",
+  description: "An immortal entity of the void. A creature of darkness that has endured through the ages—undying, untameable, and eternal.",
+  openGraph: {
+    title: "Momoru",
+    description: "An ancient darkness that cannot die. Explore the interactive 3D realm of the immortal Momoru.",
+    url: "https://momoru.vercel.app", 
+    siteName: "Momoru",
+    images: [
+      {
+        url: "/momoru.jpg",
+        width: 700,
+        height: 1200,
+        alt: "Momoru: The Immortal Darkness",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Momoru | Immortal Entity",
+    description: "The creature of darkness that cannot die. Witness the immortal Momoru.",
+    images: ["/momoru.jpg"],
+    creator: "@jofrzl",
+  },
 };
 
 export default function RootLayout({
