@@ -8,6 +8,7 @@ import * as THREE from 'three';
 import barcodeUrl from '@/design/barcode.svg';
 import { Model } from '@/components/Model';
 import Header from '@/components/Header';
+import ModelLoader from '@/components/ModelLoader';
 
 const Grid = () => {
   const startX = 800; // Start further left to cover the receding area
@@ -130,7 +131,8 @@ export default function Hero() {
       <Grid />
 
       {/* 3D Model Canvas */}
-      <div className="absolute inset-0 z-10" onWheel={handleWheel}onTouchStart={handleTouchStart}>
+      <div className="absolute inset-0 z-10" onWheel={handleWheel} onTouchStart={handleTouchStart}>
+        <ModelLoader />
         <Canvas shadows={{ type: THREE.PCFShadowMap }} camera={{ position: [0, 0, 10], fov: 35 }}>
           <ambientLight intensity={0.8} />
           {/* Main light shining directly from the viewer's perspective (camera is at 0, 0, 10) */}
@@ -158,7 +160,7 @@ export default function Hero() {
           </Suspense>
           
           <OrbitControls
-            enableZoom={true}
+            enableZoom={isMobile || isCtrlPressed}
             enableRotate={true}
             enablePan={false}
             touches={{

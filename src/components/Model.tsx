@@ -14,7 +14,7 @@ export function Model(props: ThreeElements['group']) {
   // The offset (Math.PI) ensures the model starts facing the camera
   useFrame((state) => {
     if (group.current) {
-      group.current.rotation.y = Math.PI + Math.sin(state.clock.elapsedTime * 0.3) * 0.2;
+      group.current.rotation.y = -Math.PI / 2 + Math.sin(state.clock.elapsedTime * 0.3) * 0.2;
     }
   });
 
