@@ -158,12 +158,12 @@ export default function Hero() {
           </Suspense>
           
           <OrbitControls
-            enableZoom={isMobile || isCtrlPressed}
+            enableZoom={true}
             enableRotate={true}
             enablePan={false}
             touches={{
-              ONE: undefined, // Let one-finger gestures pass through for page scrolling
-              TWO: THREE.TOUCH.ROTATE // Use two fingers for rotating on touch devices
+              ONE: undefined,              // Let single-finger pass through for page scrolling
+              TWO: THREE.TOUCH.DOLLY_ROTATE // Two-finger rotate + pinch-to-zoom
             }}
           />
         </Canvas>

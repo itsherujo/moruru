@@ -14,6 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://momoru.vercel.app"),
   title: "Momoru",
   description: "An immortal entity of the void. A creature of darkness that has endured through the ages—undying, untameable, and eternal.",
   openGraph: {
@@ -24,8 +25,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/momoru.jpg",
-        width: 700,
-        height: 1200,
+        width: 736,
+        height: 1226,
         alt: "Momoru: The Immortal Darkness",
       },
     ],

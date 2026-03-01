@@ -3,17 +3,18 @@ import { useGLTF } from '@react-three/drei';
 import { useFrame, ThreeElements } from '@react-three/fiber';
 import * as THREE from 'three';
 
-// Use the URL from the public directory
-const modelUrl = '/raging_horror_creature__free_3d_monster_model.glb';
+// Use the optimized (Draco-compressed) model – ~1 MB vs ~15 MB original
+const modelUrl = '/monster_model_optimized.glb';
 
 export function Model(props: ThreeElements['group']) {
   const { scene } = useGLTF(modelUrl);
   const group = useRef<THREE.Group>(null);
 
   // Add a slow, subtle rotation to make it feel alive
+  // The offset (Math.PI) ensures the model starts facing the camera
   useFrame((state) => {
     if (group.current) {
-      group.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.3) * 0.2;
+      group.current.rotation.y = Math.PI + Math.sin(state.clock.elapsedTime * 0.3) * 0.2;
     }
   });
 
@@ -30,7 +31,6 @@ export function Model(props: ThreeElements['group']) {
 
   return (
     <group ref={group} {...props} dispose={null}>
-      {/* Rotate the model so it faces the camera properly if needed */}
       <primitive object={scene} />
     </group>
   );
